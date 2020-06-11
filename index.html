@@ -6,11 +6,77 @@
     <title></title>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
+   
 </head>
 <body>
-	
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">知乎</h1>
+	</header>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon mui-icon-phone"></span>
+			<span class="mui-tab-label">电话</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon mui-icon-email"></span>
+			<span class="mui-tab-label">邮件</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon mui-icon-gear"></span>
+			<span class="mui-tab-label">设置</span>
+		</a>
+	</nav>
+	<div class="mui-content">
+		<div class="mui-slider">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item" href="#item1">通知<span class="mui-badge mui-badge-red mui-btn-danger">8</span></a>
+				<a class="mui-control-item" href="#item2">私信<span class="mui-badge mui-badge-red mui-btn-danger">4</span></a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+			<div class="mui-slider-group">
+				<div id="item1" class="mui-slider-item mui-control-content mui-active">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" id="yaoqing"><b>邀请</b>：人傻怎么才会少被骗</li>
+						<li class="mui-table-view-cell" id="zantong"><b>赞同与喜欢</b>：杨不易，崔家为等23人赞了你的评论</li>
+						<li class="mui-table-view-cell" id="xiaoxi">徽章小助手：<b>每天逛逛</b></li>
+					</ul>
+				</div>
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">杨不易私信了你</li>
+						<li class="mui-table-view-cell">崔家为私信了你</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+ <script type="text/javascript" charset="utf-8">
+      	mui.init();
+		document.getElementById('yaoqing').addEventListener('click',function(){
+			mui.prompt('有人邀请你回答','回答','邀请',['回答','不了'],function(e){
+				if(e.index==0){
+					mui.toast('你的回答是：'+e.value);
+				}else{
+					mui.toast('你不想回答');
+				}
+			},div)
+		})
+		document.getElementById('zantong').addEventListener('click',function(){
+			mui.prompt('有人赞同了你评论','评论',['感谢','算了'],function(e){
+				if(e.index==0){
+					mui.toast('你感谢了那些赞你的人：'+e.value);
+				}else{
+					mui.toast('已忽略');
+				}
+			},div)
+		})
+		document.getElementById('xiaoxi').addEventListener('click',function(){
+			mui.toast("你有4条未读消息")
+		})
+    </script>
 </html>
