@@ -62,7 +62,7 @@
 			var result = isPhoneNum();
 			if(result) {
 				
-				mui.ajax('http://localhost:8002/msm/send/'+phone,{
+				mui.ajax('http://123.56.66.254:9001/msm/send/'+phone,{
 					dataType:'json',//服务器返回json格式数据
 					type:'get',//HTTP请求类型
 					timeout:10000,//超时时间设置为10秒；
@@ -87,7 +87,7 @@
 			var phone = $(".phone").val();
 			var code = $(".code").val();
 			
-			mui.ajax('http://localhost:8001/zhuser/login',{
+			mui.ajax('http://123.56.66.254:9001/zhuser/login',{
 				data: {
 					"phone":phone,
 					"code" :code
@@ -106,7 +106,7 @@
 					} else {
 						var token = data.data.token;
 						localStorage.setItem("usertoken", token);
-						mui.ajax('http://localhost:8001/zhuser/getUserInfo',{
+						mui.ajax('http://123.56.66.254:9001/zhuser/getUserInfo',{
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
