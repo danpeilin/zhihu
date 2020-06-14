@@ -6,77 +6,209 @@
     <title></title>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
+	<link href="css/zlbj.css" rel="stylesheet" />
+	<link href="css/mui.picker.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="js/mui.picker.min.js"></script>
 </head>
 <style type="text/css">
-	.body{
-		background: #FFFFFF;
-	}
+	.avatar-uploader .el-upload {
+	    border: 1px dashed #d9d9d9;
+	    border-radius: 6px;
+	    cursor: pointer;
+	    position: relative;
+	    overflow: hidden;
+		border-radius: 50%;
+	  }
+	  .avatar-uploader .el-upload:hover {
+	    border-color: #409EFF;
+		width: 80px;
+		height: 80px;
+	  }
+	  .avatar-uploader-icon {
+	    font-size: 28px;
+	    color: #FFFFFF;
+		font-weight: 900;
+	    width: 80px;
+	    height: 80px;
+	    line-height: 80px;
+	    text-align: center;
+	  }
+	  .avatar {
+	    width: 80px;
+	    height: 80px;
+	    display: block;
+	  }
+	  .setavatar {
+		  width: 80px;
+		  height: 80px;
+		  border-radius: 50%;
+		  margin-top: 15px;
+		  margin-left: 15px;
+	  }
 </style>
 
 <body style="padding: 1px;">
-	<header class="mui-bar mui-bar-nav">
-		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="font-size: 18px;top: 4px;color: #000000;color: #AAAAAA; ;">编辑个人资料</a>
-		<a href="#"style="float: right;margin-top: 14px;font-size: 15px;">保存</a>
-		
+	<header class="header mui-bar mui-bar-nav">
+		<span class="guanbi mui-icon mui-icon-closeempty"></span>
+		<p class="bianji">编辑个人资料</p>
+		<p class="save">保存</p>
 	</header>
 	<div class="mui-content">
-		<div class="kais"style="width: 100%;height: 150px;">
-			<div class="tishi" style="width: 100%; height: 30px;background:#C7C7CC;color: #EEEEEE;font-size: 15px;text-align: center;padding: 3px;">您填写的内容将用于个人页面展示及内容推荐</div>
-			<div class="touxiang" style="padding: 2px;">
-				<img src="img/touxiang.jpg" style="width: 120px;height: 120px;"/>
+		<div id="app">
+			<div class="setavatar">
+				<el-upload
+				  class="avatar-uploader"
+				  action="http://127.0.0.1:9001/oss/upload"
+				  :show-file-list="false"
+				  :on-progress="onprogress"
+				  :on-success="handleAvatarSuccess"
+				  :before-upload="beforeAvatarUpload">
+				  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+				  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+				</el-upload>
 			</div>
-		</div>
-		<div class="jbenzl" style="width: 100%;height: 35px;font-size: 22px;padding: 10px;">基本资料</div>
-		<form class="mui-input-group">
-		<div class="mui-input-row" style="margin-top: 3px;">
-			<label style="color: #AAAAAA;">用户名</label>
-			<input type="text"class="mui-input-clear" placeholder="请输入用户名">
-		</div>
-		<div class="mui-input-row"style="width:100%;height: 75px;">
-			<p class="jieshao" style="margin-left: 20px;font-size: 15px;margin-top: 10px;">一句话介绍</p>
-			<input type="text" class="mui-input-clear" placeholder="请点击输入介绍" />
-		</div>
-		<div class="mui-input-row">
-			<label style="color: #AAAAAA;">性别</label>
-			 <input type="text" class="mui-input-clear" placeholder="请输入" style="width: 55%;float: left;">
-			<span class="mui-icon mui-icon-arrowright" style="margin-top: 7px; float: right; margin-right: 10px;"></span>
+			
+			<div>
+				<p class="jiben">基本资料</p>
+			</div>
+			
+			<div>
+				
+				<div class="mui-input-row inputrow">
+				    <label class="lab">昵称</label>
+				    <input type="text" class="inputs mui-input-clear" :value="this.nickname" placeholder="请输入用户名">
+				</div>
+				<div class="hr"></div>
+				<div class="mui-input-row inputrow">
+				    <label class="lab">密码</label>
+				    <input type="password" class="inputs mui-input-password" placeholder="请输入密码">
+				</div>
+				<div class="hr"></div>
+				<div class="mui-input-row inputrowplus">
+					<div class="jieshao"><p>一句话介绍</p></div>
+				    <label class="lab">签名</label>
+				    <input type="text" class="inputs mui-input-clear" :value="this.sign" placeholder="请输入签名">
+				</div>
+				<div class="hr"></div>
+				<div class="mui-input-row inputrow">
+				    <label class="lab">性别</label>
+				    <input type="text" class="inputs sexs mui-input-clear" :value="this.sex" placeholder="请选择性别">
+				</div>
+				<div class="hr"></div>
+				<div class="mui-input-row inputrow">
+				    <label class="lab">年龄</label>
+				    <input type="text" class="inputs mui-input-clear" :value="this.age" placeholder="请输入年龄">
+				</div>
+				<div class="hr"></div>
+				
+				
+				<div>
+					<p class="jiben">职业经历</p>
+				</div>
+				<div>
+					<p class="tianjia">添加职业经历</p>
+				</div>
+				<div class="kongge"></div>
+				<div>
+					<p class="jiben">教育经历</p>
+				</div>
+				<div>
+					<p class="tianjia">添加教育经历</p>
+				</div>
+				<div class="kongge"></div>
+				<div>
+					<p class="jiben">个人认证</p>
+				</div>
+				<div>
+					<p class="tianjia">添加个人认证</p>
+				</div>
+				<div class="kongge"></div>
+				
+				
+			</div>
 			
 		</div>
-		<div class="mui-input-row">
-			<label style="color: #AAAAAA;">生日</label>
-			 <input type="text" class="mui-input-clear" placeholder="请填写生日" style="width: 55%;float: left;">
-			<span class="mui-icon mui-icon-arrowright" style="margin-top: 7px; float: right; margin-right: 10px;"></span>
-		</div>
-		<div class="mui-input-row">
-			<label style="color: #AAAAAA;">居住地</label>
-			 <input type="text" class="mui-input-clear" placeholder="请填写居住地" style="width: 55%;float: left;">
-			<span class="mui-icon mui-icon-arrowright" style="margin-top: 7px; float: right; margin-right: 10px;"></span>
-		</div>
-		<div class="mui-input-row">
-			<label style="color: #AAAAAA;">所在行业</label>
-			 <input type="text" class="mui-input-clear" placeholder="请选择行业" style="width: 55%;float: left;">
-			<span class="mui-icon mui-icon-arrowright" style="margin-top: 7px; float: right; margin-right: 10px;"></span>
-		</div>
-		</form>	
-		<div class="zyjl" style="width: 100%;height: 130px;margin-top: 10px;">
-			<div class="ziti" style="width: 100%;height: 55px;">
-				<p style="font-size: 22px;color: #000000;">职业经历</p>
-			</div>
-			<div class="tianjia" style="width: 100%;height:75px;">
-				<a>添加职业经历</a>
-			</div>
-		</div>
-		<div class="zyjl" style="width: 100%;height: 130px;margin-top: 10px;">
-			<div class="ziti" style="width: 100%;height: 55px;">
-				<p style="font-size: 22px;color: #000000;">教育经历</p>
-			</div>
-			<div class="tianjia" style="width: 100%;height:75px;">
-				<a>添加教育经历</a>
-			</div>
-		</div>
-	</div>
+	<script type="text/javascript">
+		
+		var app = new Vue({
+		  el: '#app',
+		   data() {
+		        return {
+		          imageUrl: '',
+				  backimg: '',
+				  nickname: '',
+				  passwrod: '',
+				  sign: '',
+				  sex: '',
+				  age: '',
+		        };
+		      },
+			  created() {
+				  var userjson = localStorage.getItem("userinfo");
+				  var user = JSON.parse(userjson);
+				  var backimg = user.avatar;
+				  this.backimg = backimg;
+				  document.getElementsByClassName("setavatar")[0].style.backgroundImage="url("+this.backimg+")";
+				  document.getElementsByClassName("setavatar")[0].style.backgroundSize="80px 80px";
+				  this.nickname =user.nickname;
+				  this.sign = user.sign;
+				  this.sex = user.sex;
+				  this.age = user.age;
+			  },
+		      methods: {
+				onprogress() {
+					this.openFullScreen();
+				},
+				handleAvatarSuccess(data) {
+					this.closeFullScreen(this.openFullScreen())
+				  this.imageUrl = data.data.url;
+				},
+		        beforeAvatarUpload(file) {
+		          const isJPG = file.type === 'image/jpeg';
+		          const isLt2M = file.size / 1024 / 1024 < 10;
+		  
+		          if (!isJPG) {
+		            this.$message.error('上传头像图片只能是 JPG 格式!');
+		          }
+		          if (!isLt2M) {
+		            this.$message.error('上传头像图片大小不能超过 10MB!');
+		          }
+		          return isJPG && isLt2M;
+		        },
+				openFullScreen() {
+				        const loading = this.$loading({
+				          lock: true,
+				          text: '拼命上传中,请稍等',
+				          spinner: 'el-icon-loading',
+				          background: 'rgba(0, 0, 0, 0.7)'
+				        });
+				        return loading;
+				},
+				closeFullScreen(loading){
+				        loading.close();
+				}
+		      }
+			  
+		})
+		
+		document.getElementsByClassName("sexs")[0].addEventListener('tap', function() {
+			var picker = new mui.PopPicker();
+			 picker.setData([{value:'1',text:'男'},
+			 ,{value:'2',text:'女'}]);
+			 picker.show(function (selectItems) {
+			   sex = selectItems[0].text;
+			   document.getElementsByClassName("sexs")[0].value = sex;
+			})
+		})
+		
+	
+		
+		
+	</script>
 </body>
 </html>
