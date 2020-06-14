@@ -1,38 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <script src="js/mui.min.js"></script>
-    <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-		   document.querySelector('.mui-slider').addEventListener('slide', function(event) {
-		                    //alert("滑动监听=="+event.detail.slideNumber); 
-		                    $("#allTitle").find("a").attr("class","mui-control-item");
-		                    $("#allTitle").find("a").eq(event.detail.slideNumber).attr("class","mui-control-item mui-active");
-		                });
-    </script>
-</head>
-<body>
-	     <div id="slider" class="mui-slider mui-fullscreen">
-	                <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-	                    <div id="allTitle" class="mui-scroll">
-	                    </div> 
-	                </div>
-	                <div id="allTopic" class="mui-slider-group">
-	                    <div id="item1"  class="mui-slider-item mui-control-content mui-active ">
-	                        <div class="mui-scroll-wrapper">
-	                            <div class="mui-scroll"> 
-	                                <ul id="ul1" class="mui-table-view"> 
-	                                    
-	                                </ul>
-	                            </div>
-	                        </div>
-	                    </div> 
-	                </div>
-	            </div>
 
-</body>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<h1><a href="bottomNavigation.html">跳转...</a></h1>
+	</body>
+
 </html>
