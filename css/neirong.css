@@ -1,0 +1,164 @@
+body {
+	background-color: #FFFFFF;
+}
+li {
+	list-style-type: none;
+}
+.mui-content {
+	background-color: #FFFFFF;
+}
+.mui-bar-tab {
+	background-color: #FFFFFF;
+}
+.userinfo {
+	height: 50px;
+	border-bottom: 1px solid #EEEEEE;
+}
+.userinfo>img {
+	float: left;
+	width: 40px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.username {
+	height: 50px;
+	float: left;
+	line-height: 50px;
+	margin-left: 10px;
+	letter-spacing: 1px;
+	font-size: 15px;
+}
+.fork {
+	float: right;
+	margin-right: 20px;
+	margin-top: 10px;
+}
+.title {
+	height: 60px;
+	padding: 10px;
+	font-weight: 700;
+	font-size: 18px;
+	letter-spacing: 1.5px;
+}
+.titlezan {
+	font-size: 13px;
+	padding-left: 10px;
+	color: #999999;
+}
+.langdu {
+	border-radius: 5px;
+	margin: 15px;
+	height: 35px;
+	background-color: #EEEEEE;
+}
+.fir {
+	float: left;
+	margin-left: 20px;
+	margin-top: 6px;
+	color: #007AFF;
+	font-weight: 700;
+}
+.sec {
+	float: right;
+	margin-right: 10px;
+	margin-top: 6px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+.textbody {
+	height: auto;
+	margin: 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+}
+.time>p {
+	margin-left: 230px;
+}
+.bianji {
+	margin: 0;
+}
+.comments {
+	margin: 10px;
+	letter-spacing: 1px;
+}
+.pinluns {
+	height: auto;
+	border-bottom: 1px solid #EEEEEE;
+}
+.pinluns>.imgdiv>img{
+	width: 40px;
+}
+.imgdiv {
+	float: left;
+	margin-left: 5px;
+	margin-top: 5px;
+	height: 40px;
+	line-height:40px ;
+	width: 15%;
+}
+.info {
+	display: inline-block !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 80%;
+}
+.info>p {
+	margin-left: 10px;
+}
+.name {
+	color: #000000;
+	font-weight: 700;
+	margin: 0;
+}
+.com {
+	color: #000000;
+	margin: 0;
+}
+.addcomment {
+	height: 50px;
+}
+.addcomment>img {
+	margin-left: 10px;
+	width: 30px;
+	margin-top: 10px;
+}
+.pinbtn {
+	width: 260px !important;
+	height: 30px !important;
+	position: relative;
+	bottom: 10px;
+}
+.pins {
+	margin-top: 2px;
+}
+.zantong {
+	display: inline-block;
+	background-color: #E5F2FF;
+	width: 100px;
+	border-radius: 10px;
+	height: 30px;
+	margin-top: 10px;
+	margin-left: 10px;
+	text-align: center;
+	line-height: 30px;
+	color: #0062CC;
+	font-weight: 500;
+}
+.icons {
+	float: right;
+	height: 50px;
+	width: 30px;
+	margin-right: 20px;
+}
+.like {
+	width: 30px;
+}
+.like>span{
+	font-size: 20px!important;
+	margin-top: 5px;
+	padding: 0!important;
+	margin-left: 3px;
+}
+.like>p {
+	margin: 0!important;
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/zx-editor.min.css" rel="stylesheet" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/fabu.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		
+	</head>
+
+	<body>
+		<div id="app">
+			
+			<div class="topbar">
+				<span class="mui-icon mui-icon-closeempty"></span>
+				<span @click="fabu" class="mui-icon mui-icon-paperplane"></span>
+			</div>
+			  <div class="title">
+					<input class="biaoti" type="text" placeholder="标题"/>
+					<input class="miaosu" type="text" placeholder="描述"/>
+			  </div>
+			  封面图片
+			  <el-upload
+			    class="avatar-uploader"
+			    action="http://127.0.0.1:9001/oss/upload"
+			    :show-file-list="false"
+			    :on-progress="onprogress"
+			    :on-success="handleAvatarSuccess"
+			    :before-upload="beforeAvatarUpload">
+			    <img v-if="imgUrl" :src="imgUrl" class="avatar">
+			    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+			  </el-upload>
+			
+			<div id="editorContainer">
+			</div>
+			
+			
+			
+			
+			
+				
+		</div>
+		
+			
+		
+		
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+		<script src="js/mui.js"></script>
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<script src="js/zx-editor.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			var app = new Vue({
+				el: '#app',
+				data() {
+					return {
+						imgUrl: '',
+						userid:''
+					};
+				},
+				created() {
+					var userinfo = localStorage.getItem("userinfo");
+					var user = JSON.parse(userinfo);
+					this.userid = user.id;
+				},
+				methods: {
+					fabu(){
+						var title = $(".biaoti").val().trim();
+						var descript = $(".miaosu").val().trim();
+						var avatar = this.imgUrl;
+						var masterid = this.userid;
+						var text = zxEditor.getHtml();
+						mui.ajax('http://localhost:9001/zhuser/article/addarticle',{
+							data: {
+								"title":title,
+								"descript" :descript,
+								"imgback":avatar,
+								"masterid" :masterid,
+								"text":text
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':window.localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								mui.toast("发布成功")
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("发布失败")
+							}
+						});
+						
+					},
+					
+					onprogress() {
+						this.openFullScreen();
+					},
+					handleAvatarSuccess(data) {
+						this.closeFullScreen(this.openFullScreen())
+					  this.imgUrl = data.data.url;
+					},
+					beforeAvatarUpload(file) {
+					  const isJPG = file.type === 'image/jpeg';
+					  const isLt2M = file.size / 1024 / 1024 < 10;
+							  
+					  if (!isJPG) {
+					    this.$message.error('上传图片只能是 JPG 格式!');
+					  }
+					  if (!isLt2M) {
+					    this.$message.error('上传图片大小不能超过 10MB!');
+					  }
+					  return isJPG && isLt2M;
+					},
+					openFullScreen() {
+					        const loading = this.$loading({
+					          lock: true,
+					          text: '拼命上传中,请稍等',
+					          spinner: 'el-icon-loading',
+					          background: 'rgba(0, 0, 0, 0.7)'
+					        });
+					        return loading;
+					},
+					closeFullScreen(loading){
+					        loading.close();
+					}
+				}
+			})
+			
+			  // 初始化ZX编辑器
+			  var zxEditor = new ZxEditor('#editorContainer', {
+			    placeholder: '请输入内容',
+				imageMaxWidth: 200
+			  })
+		</script>
+	</body>
+
+</html>

@@ -60,28 +60,28 @@
 					<div class="mui-slider-group">
 						<div id="item1" class="mui-slider-item mui-control-content mui-active">
 							<ul class="listcards">
-								<li class="lists">
-									<div class="title">福州大学教师被举报辛勤</div>
+								<li class="lists mui-card" v-for="(item, index) in artlist" @click="into(item)">
+									<div class="title">{{item.title}}</div>
 									<div class="body">
 										<div class="left">
 											<div class="user">
 												<div class="img">
-													<img src="img/touxiang.jpg" />
+													<img :src="item.masterimg" />
 												</div>
 												<div class="name">
-													我可是
+													{{item.nickname}}
 												</div>
 											</div>
 											<div class="descript">
-												如格力卡积分抵扣 阿凡达拉福建省拉菲
+												{{item.descript}}
 											</div>
 										</div>
 										<div class="right">
-											<img src="img/touxiang.jpg" />
+											<img :src="item.imgback" />
 										</div>
 									</div>
 									<div class="zan">
-										<span class="zantong">123</span>赞同
+										<span class="zantong">{{item.zancount}}</span>赞同
 									</div>
 								</li>
 							</ul>
@@ -90,7 +90,7 @@
 						
 						<div id="item2" class="mui-slider-item mui-control-content">
 							<ul class="listcards">
-								<li class="lists" v-for="(item, index) in artlist">
+								<li class="lists mui-card"  v-for="(item, index) in artlist" @click="into(item)">
 									<div class="title">{{item.title}}</div>
 									<div class="body">
 										<div class="left">
@@ -120,7 +120,31 @@
 						
 						
 						<div id="item3" class="mui-slider-item mui-control-content">
-							<ul class="mui-table-view">
+							<ul class="listcards">
+								<li class="lists mui-card" v-for="(item, index) in artlist" @click="into(item)">
+									<div class="title">{{item.title}}</div>
+									<div class="body">
+										<div class="left">
+											<div class="user">
+												<div class="img">
+													<img :src="item.masterimg" />
+												</div>
+												<div class="name">
+													{{item.nickname}}
+												</div>
+											</div>
+											<div class="descript">
+												{{item.descript}}
+											</div>
+										</div>
+										<div class="right">
+											<img :src="item.imgback" />
+										</div>
+									</div>
+									<div class="zan">
+										<span class="zantong">{{item.zancount}}</span>赞同
+									</div>
+								</li>
 								
 							</ul>
 						</div>
@@ -143,7 +167,6 @@
 		created() {
 			  this.getalllist()
 			  
-			  console.log(this.artlist)
 		},
 		methods: {
 			
@@ -164,10 +187,17 @@
 						mui.toast("失败")
 					}
 				});
+			},
+			into(item) {
+				mui.openWindow({
+					url:'./neirong.html?id='+item.id,
+					id:'neirong.html',
+				})
 			}
 			  
 		}
 		})
+		
 		
 	</script>
 </html>
