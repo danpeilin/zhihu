@@ -8,6 +8,7 @@
     <link href="css/mui.min.css" rel="stylesheet"/>
 	<link href="css/zlbj.css" rel="stylesheet" />
 	<link href="css/mui.picker.min.css" rel="stylesheet" />
+	<script src="./js/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 	<!-- 引入样式 -->
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -68,11 +69,16 @@
 				  :on-progress="onprogress"
 				  :on-success="handleAvatarSuccess"
 				  :before-upload="beforeAvatarUpload">
-				  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+				  <img v-if="imgUrl" :src="imgUrl" class="avatar">
 				  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 				</el-upload>
 			</div>
-			
+			<div class="yincang">
+				{{this.imgUrl}}
+			</div>
+			<div class="idyincang">
+				{{this.id}}
+			</div>
 			<div>
 				<p class="jiben">基本资料</p>
 			</div>
@@ -81,18 +87,18 @@
 				
 				<div class="mui-input-row inputrow">
 				    <label class="lab">昵称</label>
-				    <input type="text" class="inputs mui-input-clear" :value="this.nickname" placeholder="请输入用户名">
+				    <input type="text" class="nickname inputs mui-input-clear" :value="this.nickname" placeholder="请输入用户名">
 				</div>
 				<div class="hr"></div>
 				<div class="mui-input-row inputrow">
 				    <label class="lab">密码</label>
-				    <input type="password" class="inputs mui-input-password" placeholder="请输入密码">
+				    <input type="password" class="password inputs mui-input-password" placeholder="请输入密码">
 				</div>
 				<div class="hr"></div>
 				<div class="mui-input-row inputrowplus">
 					<div class="jieshao"><p>一句话介绍</p></div>
 				    <label class="lab">签名</label>
-				    <input type="text" class="inputs mui-input-clear" :value="this.sign" placeholder="请输入签名">
+				    <input type="text" class="sign inputs mui-input-clear" :value="this.sign" placeholder="请输入签名">
 				</div>
 				<div class="hr"></div>
 				<div class="mui-input-row inputrow">
@@ -102,7 +108,7 @@
 				<div class="hr"></div>
 				<div class="mui-input-row inputrow">
 				    <label class="lab">年龄</label>
-				    <input type="text" class="inputs mui-input-clear" :value="this.age" placeholder="请输入年龄">
+				    <input type="text" class="age inputs mui-input-clear" :value="this.age" placeholder="请输入年龄">
 				</div>
 				<div class="hr"></div>
 				
@@ -139,13 +145,14 @@
 		  el: '#app',
 		   data() {
 		        return {
-		          imageUrl: '',
+		          imgUrl: '',
 				  backimg: '',
 				  nickname: '',
 				  passwrod: '',
 				  sign: '',
 				  sex: '',
 				  age: '',
+				  id:''
 		        };
 		      },
 			  created() {
@@ -159,6 +166,7 @@
 				  this.sign = user.sign;
 				  this.sex = user.sex;
 				  this.age = user.age;
+				  this.id = user.id
 			  },
 		      methods: {
 				onprogress() {
@@ -166,7 +174,7 @@
 				},
 				handleAvatarSuccess(data) {
 					this.closeFullScreen(this.openFullScreen())
-				  this.imageUrl = data.data.url;
+				  this.imgUrl = data.data.url;
 				},
 		        beforeAvatarUpload(file) {
 		          const isJPG = file.type === 'image/jpeg';
@@ -196,15 +204,92 @@
 			  
 		})
 		
+		
+		
 		document.getElementsByClassName("sexs")[0].addEventListener('tap', function() {
 			var picker = new mui.PopPicker();
 			 picker.setData([{value:'1',text:'男'},
-			 ,{value:'2',text:'女'}]);
+			 {value:'2',text:'女'}]);
 			 picker.show(function (selectItems) {
 			   sex = selectItems[0].text;
 			   document.getElementsByClassName("sexs")[0].value = sex;
 			})
+		});
+		
+		document.getElementsByClassName("save")[0].addEventListener('tap', function() {
+			var nickname = $(".nickname").val().trim();
+			var password = $(".password").val().trim();
+			var sign = $(".sign").val().trim();
+			var sexs = $(".sexs").val().trim();
+			if(sexs == '男') {
+				sex = 0
+			} else (
+				sex = 1
+			)
+			var age = $(".age").val().trim();
+			var avatar = $(".yincang").text().trim();
+			var id = $(".idyincang").text().trim();
+			
+			
+			
+			
+			mui.ajax('http://localhost:9001/zhuser/changeinfo',{
+				data: {
+					"id":id,
+					"nickname":nickname,
+					"password":password,
+					"sign":sign,
+					"sex":sex,
+					"age":age,
+					"avatar":avatar
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{
+					'Content-Type':'application/json',
+					'token':window.localStorage.getItem("usertoken")
+				},	              
+				success:function(data){
+					if(data.code == '20001'){
+						mui.toast(data.message);
+					}else {
+						mui.ajax('http://localhost:9001/zhuser/getUserInfo',{
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								localStorage.setItem("userinfo", JSON.stringify(data.data.userinfo));
+								// var user = localStorage.getItem("userinfo");
+								// var xia = JSON.parse(user);
+								// console.log(xia.id+"---"+xia.mobile);
+								mui.toast("修改成功");
+								// mui.openWindow({
+								//     url: './index.html', 
+								//     id:'info'
+								//   });
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("修改失败");
+							}
+						});
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					mui.toast("短信发送失败")
+				}
+			});
+			
 		})
+		
+		
+		
 		
 	
 		

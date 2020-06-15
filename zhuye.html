@@ -6,6 +6,10 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/zhuye.css" rel="stylesheet" />
+		<script src="./js/jquery-3.4.1.min.js"></script>
+		<script src="js/mui.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 		<style type="text/css">
 			#xuanxiang{
 				background-color:white;
@@ -45,54 +49,125 @@
 			</a>
 		</nav>
 		<div class="mui-content">
-			<div class="mui-slider">
-				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted " id="xuanxiang">
-					<a class="mui-control-item" href="#item1">关注 </a>
-					<a class="mui-control-item" href="#item2">推挤</a>
-					<a class="mui-control-item" href="#item3">热榜</a>
-				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
-				<div class="mui-slider-group">
-					<div id="item1" class="mui-slider-item mui-control-content mui-active">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right" href="#">面板1</a>
-								<div class="mui-collapse-content">
-									<p>面板1子内容</p>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right" href="#">面板</a>
-									<div class="mui-collapse-content">
-									<p>面板2子内容</p>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right" href="#">面板3</a>
-								<div class="mui-collapse-content">
-									<p>面板3子内容</p>
-								</div>
-							</li>
-						</ul>
+			<div id="app">
+				<div class="mui-slider">
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted " id="xuanxiang">
+						<a class="mui-control-item" href="#item1">关注 </a>
+						<a class="mui-control-item" href="#item2">推荐</a>
+						<a class="mui-control-item" href="#item3">热榜</a>
 					</div>
-					<div id="item2" class="mui-slider-item mui-control-content">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell">第2个选项卡子项</li>
-							<li class="mui-table-view-cell">第2个选项卡子项</li>
-						</ul>
-					</div>
-					<div id="item2" class="mui-slider-item mui-control-content">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell">第2个选项卡子项</li>
-							<li class="mui-table-view-cell">第2个选项卡子项</li>
-						</ul>
+					<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+					<div class="mui-slider-group">
+						<div id="item1" class="mui-slider-item mui-control-content mui-active">
+							<ul class="listcards">
+								<li class="lists">
+									<div class="title">福州大学教师被举报辛勤</div>
+									<div class="body">
+										<div class="left">
+											<div class="user">
+												<div class="img">
+													<img src="img/touxiang.jpg" />
+												</div>
+												<div class="name">
+													我可是
+												</div>
+											</div>
+											<div class="descript">
+												如格力卡积分抵扣 阿凡达拉福建省拉菲
+											</div>
+										</div>
+										<div class="right">
+											<img src="img/touxiang.jpg" />
+										</div>
+									</div>
+									<div class="zan">
+										<span class="zantong">123</span>赞同
+									</div>
+								</li>
+							</ul>
+						</div>
+						
+						
+						<div id="item2" class="mui-slider-item mui-control-content">
+							<ul class="listcards">
+								<li class="lists" v-for="(item, index) in artlist">
+									<div class="title">{{item.title}}</div>
+									<div class="body">
+										<div class="left">
+											<div class="user">
+												<div class="img">
+													<img :src="item.masterimg" />
+												</div>
+												<div class="name">
+													{{item.nickname}}
+												</div>
+											</div>
+											<div class="descript">
+												{{item.descript}}
+											</div>
+										</div>
+										<div class="right">
+											<img :src="item.imgback" />
+										</div>
+									</div>
+									<div class="zan">
+										<span class="zantong">{{item.zancount}}</span>赞同
+									</div>
+								</li>
+								
+							</ul>
+						</div>
+						
+						
+						<div id="item3" class="mui-slider-item mui-control-content">
+							<ul class="mui-table-view">
+								
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
-<script src="js/mui.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+	<script type="text/javascript">
+		mui.init()
+		
+		var App = new Vue({
+		  el: '#app',
+		  data() {
+			  return {
+				  
+				artlist:[]
+			  }
+		 },
+		created() {
+			  this.getalllist()
+			  
+			  console.log(this.artlist)
+		},
+		methods: {
+			
+			getalllist() {
+				mui.ajax('http://localhost:9001/zhuser/article/getarticle',{
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{
+						'Content-Type':'application/json',
+						'token':window.localStorage.getItem("usertoken")
+					},	              
+					success:function(data){
+						 App.artlist = data.data.list
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						mui.toast("失败")
+					}
+				});
+			}
+			  
+		}
+		})
+		
+	</script>
 </html>
