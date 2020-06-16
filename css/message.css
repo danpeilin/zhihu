@@ -31,12 +31,15 @@
 
 .my-menu>div>a{
 	line-height: 43px;
+	color: black;
 }
 .my-list{
 	margin: 5px;
 	padding: 5px;
 }
-
+.userProfile{
+	position: relative;
+}
 .userProfile>div{
 	margin: 5px;
 	width: 40px;
@@ -51,12 +54,12 @@
 
 .userProfile>span:first-of-type{
 	position: absolute;
-	top: 15px;
+	top: 5px;
 }
 .userProfile>span:last-of-type{
 	color: #AAAAAA;
 	position: absolute;
-	top:35px;
+	top:25px;
 	font-size: 12px;
 }
 
@@ -68,4 +71,14 @@
 	padding: 5px;
 	line-height: 25px;
 	height: 80px;
+}
+.msg-xiaoxi-body{
+	display: none;
+}
+.msg-all-body{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
 }

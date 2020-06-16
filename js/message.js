@@ -1,46 +1,56 @@
-/* mui.init({
-	gestureConfig:{
-		
+mui.init({
+	gestureConig:{
+		tap:true,
+		doubletap:true,
+		longtap:true,
+		swipe:true,
+		drag:true,
+		hold:false,
+		release:false
 	}
-}); */
+});
 
 window.onload = function(){
 	var menuLeft = document.getElementById("my-menu-left");
 	var menuRight = document.getElementById("my-menu-right");
 	var menuBoderLeft = document.getElementById("my-menu-border-left");
 	var menuBoderRight = document.getElementById("my-menu-border-right");
+	var dongtai = document.getElementsByClassName("msg-dongtai-body")[0];
+	var xiaoxi = document.getElementsByClassName("msg-xiaoxi-body")[0];
+	var body = document.getElementsByClassName("mui-content")[0];
 	
-	var subPages=['message_updates.html','msg_dialogue.html'];
-		var subPageStyle={
-			top:'46px',
-			bottom:'51px'
-		}
-		//使用硬件系统，必须用真机运行
-		mui.plusReady(function(){
-			var self=plus.webview.currentWebview();//获取当前页面窗体
-			for(var i=0;i<subPages.length;i++){			
-				var sub=plus.webview.create(subPages[i],subPages[i],subPageStyle);//给子页面创建窗体
-				sub.hide();//将子页面隐藏
-				self.append(sub);//将创建的子窗体追加到主页面
-			}
-			plus.webview.show(subPages[0]);
-		})
+	menuLeft.addEventListener('tap',dong_tai_event);
+	menuRight.addEventListener('tap',xiao_xi_event);
+	body.addEventListener('swiperight',dong_tai_event);
+	body.addEventListener('swipeleft',xiao_xi_event);
 	
-	menuLeft.addEventListener('tap',function(){
+	
+	function dong_tai_event(){
 		menuBoderLeft.style.borderBottom = "2px solid black";
 		menuBoderRight.style.borderBottom = "none";
 		
-		var tagPage = this.getAttribute("href");
-		plus.webview.show(tagPage,"fade-in",100);
-	});
+		dongtai.style.display = "inline";
+		xiaoxi.style.display = "none";
+		
+	}
 	
-	menuRight.addEventListener('tap',function(){
+	function xiao_xi_event(){
 		menuBoderRight.style.borderBottom = "2px solid black";
 		menuBoderLeft.style.borderBottom = "none";
 		
-		var tagPage = this.getAttribute("href");
-		plus.webview.show(tagPage,"fade-in",100);
-	});
+		dongtai.style.display = "none";
+		xiaoxi.style.display = "inline";
+	}
 	
+	 // scroll左右滚动
+	    body.scroll({
+	        // deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	        scrollY: false, //是否竖向滚动
+	        scrollX: true, //是否横向滚动
+	        startX: 0, //初始化时滚动至x
+	        startY: 0, //初始化时滚动至y
+	        // indicators: true, //是否显示滚动条
+	        deceleration: 8.1008, //阻尼系数,系数越小滑动越灵敏
+	        bounce: true //是否启用回弹
+	    });
 }
-   
