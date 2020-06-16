@@ -17,7 +17,7 @@
 				</div>
 			</header>
 			<nav class="mui-bar mui-bar-tab">
-				<div class="zantong">
+				<div class="zantong" @click="dianzan">
 					点赞
 				</div>
 				<div class="icons">
@@ -166,6 +166,25 @@
 							},	              
 							success:function(data){
 								App.commentList = data.data.commentlist
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("失败")
+							}
+						});
+					},
+					dianzan() {
+						mui.ajax('http://localhost:9001/zhuser/zan/'+this.userid+'/'+this.parentid,{
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':window.localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								mui.toast(data.message);
+								App.requestArticle();
 							},
 							error:function(xhr,type,errorThrown){
 								//异常处理；

@@ -16,7 +16,7 @@
 		<div id="app">
 			
 			<div class="topbar">
-				<span class="mui-icon mui-icon-closeempty"></span>
+				<span class="guanbi mui-icon mui-icon-closeempty"></span>
 				<span @click="fabu" class="mui-icon mui-icon-paperplane"></span>
 			</div>
 			  <div class="title">
@@ -135,6 +135,10 @@
 					        loading.close();
 					}
 				}
+			})
+			
+			document.getElementsByClassName("guanbi")[0].addEventListener('tap', function(){
+				mui.back();
 			})
 			
 			  // 初始化ZX编辑器
