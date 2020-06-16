@@ -10,7 +10,7 @@ window.onload = function(){
 	var menuBoderLeft = document.getElementById("my-menu-border-left");
 	var menuBoderRight = document.getElementById("my-menu-border-right");
 	
-	var subPages=['message_updates.html','login.html'];
+	var subPages=['message_updates.html','msg_dialogue.html'];
 		var subPageStyle={
 			top:'46px',
 			bottom:'51px'
@@ -19,8 +19,8 @@ window.onload = function(){
 		mui.plusReady(function(){
 			var self=plus.webview.currentWebview();//获取当前页面窗体
 			for(var i=0;i<subPages.length;i++){			
-				var sub=plus.webview.create(subPages[i],subPages[i],subPageStyle);//给四个子页面创建窗体
-				sub.hide();//将4个子页面隐藏
+				var sub=plus.webview.create(subPages[i],subPages[i],subPageStyle);//给子页面创建窗体
+				sub.hide();//将子页面隐藏
 				self.append(sub);//将创建的子窗体追加到主页面
 			}
 			plus.webview.show(subPages[0]);
@@ -43,3 +43,4 @@ window.onload = function(){
 	});
 	
 }
+   
