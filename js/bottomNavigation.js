@@ -2,7 +2,7 @@
 				//mui初始化
 				mui.init();
 				// 子页面集合
-				var subpages = ['zhuye.html', 'message.html', 'zlbj.html'];
+				var subpages = ['zhuye.html', 'message.html', 'zlbj.html','wode.html'];
 				// 子页面样式
 				var subpage_style = {
 					top: '0px',
