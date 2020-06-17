@@ -64,7 +64,7 @@
 			<div class="setavatar">
 				<el-upload
 				  class="avatar-uploader"
-				  action="http://127.0.0.1:9001/oss/upload"
+				  action="http://123.56.66.254:9001/oss/upload"
 				  :show-file-list="false"
 				  :on-progress="onprogress"
 				  :on-success="handleAvatarSuccess"
@@ -92,7 +92,7 @@
 				<div class="hr"></div>
 				<div class="mui-input-row inputrow">
 				    <label class="lab">密码</label>
-				    <input type="password" class="password inputs mui-input-password" placeholder="请输入密码">
+				    <input type="password" class="password inputs mui-input-password" placeholder="修改密码">
 				</div>
 				<div class="hr"></div>
 				<div class="mui-input-row inputrowplus">
@@ -103,7 +103,8 @@
 				<div class="hr"></div>
 				<div class="mui-input-row inputrow">
 				    <label class="lab">性别</label>
-				    <input type="text" class="inputs sexs mui-input-clear" :value="this.sex" placeholder="请选择性别">
+				    <input type="text" class="inputs sexs mui-input-clear" v-if="this.sex === 1" value="男" placeholder="请选择性别">
+					<input type="text" class="inputs sexs mui-input-clear" v-else value="女" placeholder="请选择性别">
 				</div>
 				<div class="hr"></div>
 				<div class="mui-input-row inputrow">
@@ -233,7 +234,7 @@
 			
 			
 			
-			mui.ajax('http://localhost:9001/zhuser/changeinfo',{
+			mui.ajax('http://123.56.66.254:9001/zhuser/changeinfo',{
 				data: {
 					"id":id,
 					"nickname":nickname,
@@ -254,7 +255,7 @@
 					if(data.code == '20001'){
 						mui.toast(data.message);
 					}else {
-						mui.ajax('http://localhost:9001/zhuser/getUserInfo',{
+						mui.ajax('http://123.56.66.254:9001/zhuser/getUserInfo',{
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
