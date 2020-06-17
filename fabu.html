@@ -26,7 +26,7 @@
 			  封面图片
 			  <el-upload
 			    class="avatar-uploader"
-			    action="http://127.0.0.1:9001/oss/upload"
+			    action="http://123.56.66.254:9001/oss/upload"
 			    :show-file-list="false"
 			    :on-progress="onprogress"
 			    :on-success="handleAvatarSuccess"
@@ -77,7 +77,9 @@
 						var avatar = this.imgUrl;
 						var masterid = this.userid;
 						var text = zxEditor.getHtml();
-						mui.ajax('http://localhost:9001/zhuser/article/addarticle',{
+					
+						
+						mui.ajax('http://123.56.66.254:9001/zhuser/article/addarticle',{
 							data: {
 								"title":title,
 								"descript" :descript,
@@ -89,7 +91,7 @@
 							type:'post',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
 							headers:{
-								'Content-Type':'application/json',
+								'Content-Type':'application/json;charset=UTF-8',
 								'token':window.localStorage.getItem("usertoken")
 							},	              
 							success:function(data){
@@ -138,7 +140,10 @@
 			})
 			
 			document.getElementsByClassName("guanbi")[0].addEventListener('tap', function(){
-				mui.back();
+				mui.openWindow({
+					url:'./zhuye.html',
+					id:'zhuye.html'
+				})
 			})
 			
 			  // 初始化ZX编辑器

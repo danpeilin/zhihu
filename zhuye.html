@@ -149,16 +149,17 @@
 		methods: {
 			
 			getalllist() {
-				mui.ajax('http://localhost:9001/zhuser/article/getarticle',{
+				mui.ajax('http://123.56.66.254:9001/zhuser/article/getarticle',{
 					dataType:'json',//服务器返回json格式数据
 					type:'get',//HTTP请求类型
 					timeout:10000,//超时时间设置为10秒；
 					headers:{
-						'Content-Type':'application/json',
+						'Content-Type':'application/json;charset=UTF-8',
 						'token':window.localStorage.getItem("usertoken")
 					},	              
 					success:function(data){
 						 App.artlist = data.data.list
+						 console.log(App.artlist)
 					},
 					error:function(xhr,type,errorThrown){
 						//异常处理；

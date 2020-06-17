@@ -8,6 +8,10 @@
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/gerenzhuye.css" rel="stylesheet" />
 		<link href="css/zhuye.css" rel="stylesheet" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- 引入组件库 -->
+		
 	</head>
 
 	<body>
@@ -16,7 +20,7 @@
 			<div class="mui-content">
 				
 				<div class="back">
-						<span class="mui-icon mui-icon-arrowthinleft"></span>
+						<span class="mback mui-icon mui-icon-arrowthinleft"></span>
 					</div>
 					<div class="touxiang">
 						<div class="imgsdiv">
@@ -78,9 +82,11 @@
 										<img :src="item.imgback" />
 									</div>
 								</div>
-								<div class="zan">
+								<div class="zangeren">
 									<span class="zantong">{{item.zancount}}</span>赞同
 								</div>
+								
+								<button type="button" class="shanchu mui-btn mui-btn-red" @click.stop="deleteinfo(item.id)">删除</button>
 							</li>
 						</div>
 						<div id="item2" class="mui-slider-item mui-control-content">
@@ -116,9 +122,10 @@
 								<div class="bodycom">
 									{{item.commenttext}}
 								</div>
-								<div class="zan">
+								<div class="zanhuifu">
 									{{item.gmtCreate}}
 								</div>
+								<button type="button" class="deletehuifu mui-btn mui-btn-red" @click.stop="deletehuifu(item.id)">删除</button>
 							</li>
 						</div>
 					</div>
@@ -132,6 +139,7 @@
 	<script src="./js/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 	<script src="js/mui.js"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 	<script type="text/javascript">
 		
 				
@@ -161,7 +169,7 @@
 			},
 			methods: {
 			  getalllist() {
-				mui.ajax('http://localhost:9001/zhuser/article/getbyuserid/'+this.userid,{
+				mui.ajax('http://123.56.66.254:9001/zhuser/article/getbyuserid/'+this.userid,{
 					dataType:'json',//服务器返回json格式数据
 					type:'get',//HTTP请求类型
 					timeout:10000,//超时时间设置为10秒；
@@ -179,7 +187,7 @@
 				});
 			  },
 			  getallzan() {
-				mui.ajax('http://localhost:9001/zhuser/findzan/'+this.userid,{
+				mui.ajax('http://123.56.66.254:9001/zhuser/findzan/'+this.userid,{
 					dataType:'json',//服务器返回json格式数据
 					type:'get',//HTTP请求类型
 					timeout:10000,//超时时间设置为10秒；
@@ -198,7 +206,7 @@
 			  },
 			  
 			  getallcom() {
-				  mui.ajax('http://localhost:9001/zhuser/comment/mycomment/'+this.userid,{
+				  mui.ajax('http://123.56.66.254:9001/zhuser/comment/mycomment/'+this.userid,{
 				  	dataType:'json',//服务器返回json格式数据
 				  	type:'get',//HTTP请求类型
 				  	timeout:10000,//超时时间设置为10秒；
@@ -220,6 +228,56 @@
 			  		url:'./neirong.html?id='+item.id,
 			  		id:'neirong.html',
 			  	})
+			  },
+			  deleteinfo(id) {
+				  mui.confirm("您确定要删除吗？此操作将连同删除此文章下的评论点赞", "删除",['确定','取消'], function(e){
+					  if(e.index==0) {
+						  mui.ajax('http://123.56.66.254:9001/zhuser/article/deletebyid/'+id,{
+						  	dataType:'json',//服务器返回json格式数据
+						  	type:'get',//HTTP请求类型
+						  	timeout:10000,//超时时间设置为10秒；
+						  	headers:{
+						  		'Content-Type':'application/json',
+						  		'token':window.localStorage.getItem("usertoken")
+						  	},	              
+						  	success:function(data){
+						  		mui.toast(data.data.message)
+								App.getalllist()
+						  	},
+						  	error:function(xhr,type,errorThrown){
+						  		//异常处理；
+						  		mui.toast("失败")
+						  	}
+						  });
+					  } else {
+						  return;
+					  }
+				  })
+			  },
+			  deletehuifu(id) {
+				  mui.confirm("您确定要删除吗", "删除", ['确定','取消'], function(e){
+					  if(e.index == 0) {
+						  mui.ajax('http://123.56.66.254:9001/zhuser/comment/deletebyid/'+id,{
+						  	dataType:'json',//服务器返回json格式数据
+						  	type:'get',//HTTP请求类型
+						  	timeout:10000,//超时时间设置为10秒；
+						  	headers:{
+						  		'Content-Type':'application/json',
+						  		'token':window.localStorage.getItem("usertoken")
+						  	},	              
+						  	success:function(data){
+						  		mui.toast(data.data.message)
+								App.getallcom()
+						  	},
+						  	error:function(xhr,type,errorThrown){
+						  		//异常处理；
+						  		mui.toast("失败")
+						  	}
+						  });
+					  } else {
+						  return
+					  }
+				  })
 			  }
 			  
 			}
@@ -229,6 +287,12 @@
 			mui.openWindow({
 				url:'./zlbj.html',
 				id:'zlbj.html'
+			})
+		})
+		document.getElementsByClassName("mback")[0].addEventListener('tap', function(){
+			mui.openWindow({
+				url:'./wode.html',
+				id:'wode.html'
 			})
 		})
 		

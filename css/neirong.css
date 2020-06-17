@@ -115,20 +115,24 @@ li {
 	margin: 0;
 }
 .addcomment {
-	height: 50px;
+	height: 40px;
 }
 .addcomment>img {
-	margin-left: 10px;
+	float: left;
+	margin-left: 5px;
 	width: 30px;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 .pinbtn {
+	float: left;
 	width: 260px !important;
 	height: 30px !important;
-	position: relative;
-	bottom: 10px;
+	margin-top: 4px;
+	margin-left: 5px;
 }
 .pins {
+	float: right;
+	margin-right: 10px;
 	margin-top: 2px;
 }
 .zantong {

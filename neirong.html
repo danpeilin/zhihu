@@ -111,7 +111,7 @@
 				},
 				methods: {
 					requestArticle(){
-						mui.ajax('http://localhost:9001/zhuser/article/getarticlebyid/'+this.parentid,{
+						mui.ajax('http://123.56.66.254:9001/zhuser/article/getarticlebyid/'+this.parentid,{
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
@@ -130,7 +130,7 @@
 					},
 					fabu(){
 						var commenttext = $(".pinbtn").val();
-						mui.ajax('http://localhost:9001/zhuser/comment/addcomment',{
+						mui.ajax('http://123.56.66.254:9001/zhuser/comment/addcomment',{
 							data: {
 								'userid': App.userid,
 								'articleid':App.parentid,
@@ -156,7 +156,7 @@
 					},
 					
 					requestcomments(){
-						mui.ajax('http://localhost:9001/zhuser/comment/getcomment/'+this.parentid,{
+						mui.ajax('http://123.56.66.254:9001/zhuser/comment/getcomment/'+this.parentid,{
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
@@ -174,7 +174,7 @@
 						});
 					},
 					dianzan() {
-						mui.ajax('http://localhost:9001/zhuser/zan/'+this.userid+'/'+this.parentid,{
+						mui.ajax('http://123.56.66.254:9001/zhuser/zan/'+this.userid+'/'+this.parentid,{
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							timeout:10000,//超时时间设置为10秒；
