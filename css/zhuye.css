@@ -53,6 +53,7 @@ body {
 .body {
 	width: 100%;
 	height: 85px;
+	margin-top: 8px;
 }
 .zantong {
 	letter-spacing: 0.5px;

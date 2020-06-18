@@ -95,6 +95,10 @@
 								'token':window.localStorage.getItem("usertoken")
 							},	              
 							success:function(data){
+								mui.openWindow({
+									url:'./zhuye.html',
+									id:'zhuye.html'
+								})
 								mui.toast("发布成功")
 							},
 							error:function(xhr,type,errorThrown){

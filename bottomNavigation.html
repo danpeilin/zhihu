@@ -35,4 +35,10 @@
 		</nav>
 	</body>
 	<script src="js/bottomNavigation.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function(){
+		     console.log("当前页面URL："+plus.webview.currentWebview().getURL());
+		});
+	</script>
 </html>

@@ -21,12 +21,12 @@
 		<header class="mui-bar mui-bar-nav">
 			<span class="mui-icon mui-icon-videocam mui-pull-left"></span>
 			<div class="mui-input-row mui-search" style="width: 80%; display: inline-block; margin-left: 13px;">
-				<input type="search" class="mui-input-clear" placeholder="知乎">
+				<input type="search" class="zsearch mui-input-clear" placeholder="知乎">
 			</div>
 			<span class="fabu mui-icon mui-icon-plus mui-pull-right"></span>
 			<div></div>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="refreshContainer">
 			<div id="app">
 				<div class="mui-slider">
 					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted " id="xuanxiang">
@@ -132,7 +132,7 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		mui.init()
+		
 		
 		var App = new Vue({
 		  el: '#app',
@@ -159,7 +159,6 @@
 					},	              
 					success:function(data){
 						 App.artlist = data.data.list
-						 console.log(App.artlist)
 					},
 					error:function(xhr,type,errorThrown){
 						//异常处理；
@@ -172,7 +171,7 @@
 					url:'./neirong.html?id='+item.id,
 					id:'neirong.html',
 				})
-			}
+			},
 			  
 		}
 		})
@@ -182,6 +181,8 @@
 				id:'fabu.html'
 			})
 		})
+		
+		
 		
 	</script>
 </html>

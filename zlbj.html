@@ -210,7 +210,7 @@
 		document.getElementsByClassName("sexs")[0].addEventListener('tap', function() {
 			var picker = new mui.PopPicker();
 			 picker.setData([{value:'1',text:'男'},
-			 {value:'2',text:'女'}]);
+			 {value:'0',text:'女'}]);
 			 picker.show(function (selectItems) {
 			   sex = selectItems[0].text;
 			   document.getElementsByClassName("sexs")[0].value = sex;
@@ -223,9 +223,9 @@
 			var sign = $(".sign").val().trim();
 			var sexs = $(".sexs").val().trim();
 			if(sexs == '男') {
-				sex = 0
-			} else (
 				sex = 1
+			} else (
+				sex = 0
 			)
 			var age = $(".age").val().trim();
 			var avatar = $(".yincang").text().trim();
