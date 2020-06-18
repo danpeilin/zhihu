@@ -1,0 +1,89 @@
+.ping_dao{
+	background-color: #efeff4;
+}
+.fang_wen{
+	padding: 5px 5% 0px;
+	white-space: nowrap;
+}
+.fang_wen>span{
+	font-size: 12px;
+	color: #999999;
+}
+.fang_wen>ul{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	font-size: 0px;
+}
+.fang_wen>ul>li{
+	width: 16%;
+	margin-right: 5px;
+	display: inline-block;
+	font-size: 12px;
+	text-align: center;
+	
+}
+.fang_wen>ul>li:last-of-type{
+	margin-right: 0px;
+}
+.fang_wen>ul>li>div{
+	width: 50px;
+	height: 50px;
+	margin-bottom: 3px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+.fang_wen>ul>li>span{
+	line-height: 10px;
+}
+.tao_lun{
+	width: 95%;
+	margin: 10px auto;
+	border-radius: 10px;
+	padding: 10px 10px;
+	background-color: #FFFFFF;
+	position: relative;
+}
+.tao_lun>div:first-of-type{
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	overflow: hidden;
+	display: inline-block;
+}
+.tao_lun>b{
+	position: absolute;
+	font-size: 15px;
+	left: 50px;
+	top: 15px;
+}
+.tao_lun>span{
+	position: absolute;
+	right: 10px;
+	top: 15px;
+	color: red;
+}
+.wen_zhang{
+	max-height: 100px;
+	margin: 5px 0px;
+}
+.wen_zhang>b{
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 16px;
+	text-indent:23px;
+	max-height: 45px;
+}
+.wen_zhang>p{
+	max-height: 45px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.shu_ju{
+	white-space: nowrap;
+	overflow: hidden;
+}
+.shu_ju>span{
+	font-size: 13px;
+}

@@ -1,0 +1,43 @@
+
+.nei_rong>div>ul>li{
+	width: 50%;
+	margin: 0px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 16px;
+	background-color: #efeff4;
+	height: 45px;
+	padding: 5px 15px;
+}
+.nei_rong>div>ul>li>span{
+	margin-right: 10px;
+	color: #C4C4C4;
+}
+.nei_rong>div>ul>li>p{
+	margin-left: 22px;
+	font-size: 12px;
+	color: #999999;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.li_left{
+	float: left;
+}
+.li_right{
+	float: right;
+}
+.top_three{
+	color: #E76108 !important;
+}
+.geng_duo{
+	margin: 10px 0px;
+	height: 30px;
+	text-align: center;
+	border-bottom:1px solid #CCCCCC;
+}
+.my_body{
+	border: none !important;
+	margin: 10px 0px;
+}
