@@ -11,7 +11,7 @@
 <body>
 	
 	<header class="mui-bar mui-bar-nav header">
-		<span class="mui-icon mui-icon-closeempty"></span>
+		<span class="mui-icon mui-icon-closeempty guanbi"></span>
 		<span class="help">帮助</span>
 	</header>
 	
@@ -121,8 +121,8 @@
 								// console.log(xia.id+"---"+xia.mobile);
 								mui.toast("登录成功");
 								mui.openWindow({
-								    url: './index.html', 
-								    id:'info'
+								    url: './zhuye.html', 
+								    id:'zhuye'
 								  });
 							},
 							error:function(xhr,type,errorThrown){
@@ -169,6 +169,10 @@
 				return true;
 			}
 		}
+		
+		document.getElementsByClassName('guanbi')[0].addEventListener('tap', function() {
+			mui.back();
+		})
 	</script>
 </body>
 </html>

@@ -6,10 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/wode.css"/>
-		<script src="js/mui.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+		
 		
 	</head>
 
@@ -31,14 +28,18 @@
 		<div class="mui-content zhu_yao_nei_rong">
 			<div class="zhan_wei"></div>
 			<div class="zhan_wei_yuan"></div>
-			<div class="ge_ren_xin_xi">
-				<div class="xin_xi_1">
+			<div class="ge_ren_xin_xi" id="islogin">
+				<div v-show="islogin" class="xin_xi_1">
 					<div class="tou_xiang">
-						<img src="img/111.jpg" >
+						<img :src="avatar" >
 					</div>
-					<b>晴空</b>
+					<b>{{nickname}}</b>
 					<div>知乎盐值：290 &gt;</div>
-					<span>个人主页 &gt; </span>
+					<span class="geren">个人主页 &gt; </span>
+				</div>
+				<div v-show="!islogin"  class="xin_xi_1" style="text-align: center;margin-top: 10px;">
+					登录知乎，体验更多功能<br>
+					<p style="color: #0062CC;" id="tolog">登录</p>
 				</div>
 				<div class="xin_xi_2">
 					<ul>
@@ -162,5 +163,64 @@
 			</div>
 		</div>
 	</body>
-
+	<script src="js/mui.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	<script type="text/javascript">
+		mui.init();
+		
+		
+		var app = new Vue({
+			el: '#islogin',
+			data() {
+				return {
+					userid: '',
+					nickname: '',
+					avatar: '',
+					islogin: 't'
+				};
+			},
+			created() {
+				  var userjson = localStorage.getItem("userinfo");
+				  if(userjson == null) {
+					  this.islogin = false
+				  }
+				  var user = JSON.parse(userjson);
+				  this.userid = user.id;
+				  this.nickname = user.nickname;
+				  this.avatar = user.avatar;
+				 
+			},
+			methods: {
+				
+			}
+		})
+		
+		
+		document.getElementById('tolog').addEventListener('tap', function(){
+			mui.openWindow({
+				url:'./login.html',
+				id:'login.html'
+			})
+		});
+		
+		document.getElementsByClassName('geren')[0].addEventListener('tap', function() {
+			mui.openWindow({
+				url:'./gerenzhuye.html',
+				id:'gerenzhuye.html'
+			})
+		});
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
 </html>
