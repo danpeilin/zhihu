@@ -1,12 +1,8 @@
 .topbar{
 	background-color: #FFFFFF;
 }
-.hide{
-	top: -60px;
-}
-
 .title{
-	margin-top: 50px;
+	margin-top: 10px;
 }
 .mui-icon-closeempty{
 	font-size: 40px!important;
@@ -15,6 +11,8 @@
 .mui-icon-paperplane{
 	font-size: 34px!important;
 	float: right;
+	margin-right: 20px;
+	margin-top: 5px;
 	color: #007AFF;
 }
 .avatar-uploader .el-upload {

@@ -11,20 +11,27 @@ body {
 .mui-content {
 	background-color: #FFFFFF;
 }
+.guanbi {
+	font-size: 40px !important;
+	position: relative;
+	bottom: 7px;
+}
 .bianji {
-	float: left;
-	margin-top: 12px;
-	margin-left: 20px;
+	display: inline-block;
+	position: relative;
+	bottom: 13px;
 	font-size: 17px;
+	left: 10px;
 	color: #000000;
 	letter-spacing: 2px;
 }
 .save {
-	float: right;
-	margin-right: 15px;
-	margin-top: 12px;
+	display: inline-block;
+	position: relative;
+	bottom: 13px;
 	font-size: 15px;
 	color: #007AFF;
+	margin-left: 145px;
 	letter-spacing: 2px;
 }
 .jiben {

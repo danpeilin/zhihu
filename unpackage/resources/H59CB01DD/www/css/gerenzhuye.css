@@ -1,11 +1,6 @@
 body {
 	background-color: #FFFFFF;
 }
-.exit {
-	float: right;
-	margin-top: 12px;
-	color: red;
-}
 .back {
 	height: 140px;
 	background-color: #999999;

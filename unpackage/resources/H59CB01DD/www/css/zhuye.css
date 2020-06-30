@@ -1,0 +1,61 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	background-color: #FFFFFF;
+}
+.mui-bar{
+	background-color: #FFFFFF;
+}
+.mui-content {
+	padding-bottom: 0!important;
+}
+.lists {
+	margin-top: 10px;
+	height: 150px;
+	background-color: #FFFFFF;
+	padding: 15px;
+}
+.img {
+	float: left;
+	width: 30px;
+}
+.name {
+	float: left;
+	font-size: 13px;
+	letter-spacing: 1px;
+	margin-left: 10px;
+}
+.user {
+	height: 30px;
+}
+.title {
+	font-size: 18px;
+	height: auto;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+.descript {
+	height: 50px;
+	font-size: 12px;
+	letter-spacing: 1px;
+}
+.right {
+	float: right;
+	width:19%;
+	height: 85px;
+}
+.left {
+	width: 79%;
+	float: left;
+}
+.body {
+	width: 100%;
+	height: 85px;
+	margin-top: 8px;
+}
+.zantong {
+	letter-spacing: 0.5px;
+	margin-right: 5px;
+}

@@ -12,9 +12,8 @@
 }
 
 .help {
-	float: right;
-	margin-top: 13px;
-	margin-right: 10px;
+	margin-left: 280px;
+	font-size: 14px;
 }
 .title {
 	margin-top: 35px;
