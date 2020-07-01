@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/gerenzhuye.css" rel="stylesheet" />
+		<link href="../css/zhuye.css" rel="stylesheet" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- 引入组件库 -->
+		
+	</head>
+
+	<body>
+		
+		<div id="app">
+			<div class="mui-content">
+				
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<p class="exit">退出登录</p>
+				</header>
+				<div class="back">
+					
+				</div>
+					<div class="touxiang">
+						<div class="imgsdiv">
+							<img :src="this.avatar">
+						</div>
+						<div class="zlbj">
+							<button type="button" class="bj mui-btn mui-btn-blue">编辑资料</button>
+						</div>
+					</div>
+					<div class="sname">
+						{{this.nickname}}
+					</div>
+					
+					<div class="zl">
+						<p>古代史</p>
+						<div class="guanzu">
+							<span>0</span>关注我的人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>1</span>我关注的人				
+						</div>
+						<div class="renzheng">
+							个人认证
+						</div>
+						<div class="renzheng">
+							<p class="huiz">我的徽章</p>
+							<p class="linqu">2枚徽章待领取</p>
+						</div>
+					</div>
+					<div class="xinxiang">
+						<p>完善我的知乎形象，获取更多关注</p>
+						<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined">添加形象关键词</button>
+					</div>
+				</div>
+				
+				<div class="mui-slider">
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted " id="xuanxiang">
+						<a class="mui-control-item" href="#item1">动态</a>
+						<a class="mui-control-item" href="#item2">点赞</a>
+						<a class="mui-control-item" href="#item3">回答</a>
+					</div>
+					<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+					<div class="mui-slider-group">
+						<div id="item1" class="mui-slider-item mui-control-content mui-active">
+							<li class="lists mui-card"  v-for="(item, index) in artlist" @click="into(item)">
+								<div class="title">{{item.title}}</div>
+								<div class="body">
+									<div class="left">
+										<div class="user">
+											<div class="img">
+												<img :src="item.masterimg" />
+											</div>
+											<div class="name">
+												{{item.mastername}}
+											</div>
+										</div>
+										<div class="descript">
+											{{item.descript}}
+										</div>
+									</div>
+									<div class="right">
+										<img :src="item.imgback" />
+									</div>
+								</div>
+								<div class="zangeren">
+									<span class="zantong">{{item.zancount}}</span>赞同
+								</div>
+								
+								<button type="button" class="shanchu mui-btn mui-btn-red" @click.stop="deleteinfo(item.id)">删除</button>
+							</li>
+						</div>
+						<div id="item2" class="mui-slider-item mui-control-content">
+							<li class="lists mui-card"  v-for="(item, index) in zanlist" @click="into(item)">
+								<div class="title">{{item.title}}</div>
+								<div class="body">
+									<div class="left">
+										<div class="user">
+											<div class="img">
+												<img :src="item.masterimg" />
+											</div>
+											<div class="name">
+												{{item.mastername}}
+											</div>
+										</div>
+										<div class="descript">
+											{{item.descript}}
+										</div>
+									</div>
+									<div class="right">
+										<img :src="item.imgback" />
+									</div>
+								</div>
+								<div class="zan">
+									<span class="zantong">{{item.zancount}}</span>赞同
+								</div>
+							</li>
+						</div>
+						<div id="item3" class="mui-slider-item mui-control-content">
+							<li class="listss mui-card" v-for="(item, index) in commentList">
+								<div class="title">
+									文章标题：<span class="zantong">{{item.title}}</span></div>
+								<div class="bodycom">
+									{{item.commenttext}}
+								</div>
+								<div class="zanhuifu">
+									{{item.gmtCreate}}
+								</div>
+								<button type="button" class="deletehuifu mui-btn mui-btn-red" @click.stop="deletehuifu(item.id)">删除</button>
+							</li>
+						</div>
+					</div>
+					</div>
+				
+			</div>
+		</div>
+		
+	</body>
+	
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	<script src="../js/mui.js"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script type="text/javascript">
+		
+				
+		mui.init()
+		
+		var App = new Vue({
+			el: '#app',
+			data() {
+				return {
+					commentList:[],
+					artlist:[],
+					zanlist:[],
+					userid:'',
+					nickname: '',
+					avatar:''
+				};
+			},
+			created() {
+				var userjson = localStorage.getItem("userinfo");
+				var user = JSON.parse(userjson);
+				this.userid = user.id;
+				this.nickname = user.nickname;
+				this.avatar = user.avatar;
+				this.getalllist()
+				this.getallzan()
+				this.getallcom()
+			},
+			methods: {
+			  getalllist() {
+				mui.ajax('http://123.56.66.254:9001/zhuser/article/getbyuserid/'+this.userid,{
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{
+						'Content-Type':'application/json',
+						'token':window.localStorage.getItem("usertoken")
+					},	              
+					success:function(data){
+						App.artlist = data.data.list
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						mui.toast("失败")
+					}
+				});
+			  },
+			  getallzan() {
+				mui.ajax('http://123.56.66.254:9001/zhuser/findzan/'+this.userid,{
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{
+						'Content-Type':'application/json',
+						'token':window.localStorage.getItem("usertoken")
+					},	              
+					success:function(data){
+						App.zanlist = data.data.list
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						mui.toast("失败")
+					}
+				});
+			  },
+			  
+			  getallcom() {
+				  mui.ajax('http://123.56.66.254:9001/zhuser/comment/mycomment/'+this.userid,{
+				  	dataType:'json',//服务器返回json格式数据
+				  	type:'get',//HTTP请求类型
+				  	timeout:10000,//超时时间设置为10秒；
+				  	headers:{
+				  		'Content-Type':'application/json',
+				  		'token':window.localStorage.getItem("usertoken")
+				  	},	              
+				  	success:function(data){
+				  		App.commentList = data.data.list
+				  	},
+				  	error:function(xhr,type,errorThrown){
+				  		//异常处理；
+				  		mui.toast("失败")
+				  	}
+				  });
+			  },
+			  into(item) {
+			  	mui.openWindow({
+			  		url:'./neirong.html?id='+item.id,
+			  		id:'neirong.html',
+			  	})
+			  },
+			  deleteinfo(id) {
+				  mui.confirm("您确定要删除吗？此操作将连同删除此文章下的评论点赞", "删除",['确定','取消'], function(e){
+					  if(e.index==0) {
+						  mui.ajax('http://123.56.66.254:9001/zhuser/article/deletebyid/'+id,{
+						  	dataType:'json',//服务器返回json格式数据
+						  	type:'get',//HTTP请求类型
+						  	timeout:10000,//超时时间设置为10秒；
+						  	headers:{
+						  		'Content-Type':'application/json',
+						  		'token':window.localStorage.getItem("usertoken")
+						  	},	              
+						  	success:function(data){
+						  		mui.toast(data.data.message)
+								App.getalllist()
+						  	},
+						  	error:function(xhr,type,errorThrown){
+						  		//异常处理；
+						  		mui.toast("失败")
+						  	}
+						  });
+					  } else {
+						  return;
+					  }
+				  })
+			  },
+			  deletehuifu(id) {
+				  mui.confirm("您确定要删除吗", "删除", ['确定','取消'], function(e){
+					  if(e.index == 0) {
+						  mui.ajax('http://123.56.66.254:9001/zhuser/comment/deletebyid/'+id,{
+						  	dataType:'json',//服务器返回json格式数据
+						  	type:'get',//HTTP请求类型
+						  	timeout:10000,//超时时间设置为10秒；
+						  	headers:{
+						  		'Content-Type':'application/json',
+						  		'token':window.localStorage.getItem("usertoken")
+						  	},	              
+						  	success:function(data){
+						  		mui.toast(data.data.message)
+								App.getallcom()
+						  	},
+						  	error:function(xhr,type,errorThrown){
+						  		//异常处理；
+						  		mui.toast("失败")
+						  	}
+						  });
+					  } else {
+						  return
+					  }
+				  })
+			  }
+			  
+			}
+		})
+		
+		document.getElementsByClassName("bj")[0].addEventListener('tap', function(){
+			mui.openWindow({
+				url:'./zlbj.html',
+				id:'zlbj.html'
+			})
+		});
+		
+		document.getElementsByClassName('exit')[0].addEventListener('tap', function() {
+			window.localStorage.clear();
+			var page = plus.webview.currentWebview();
+			var bpage = page.opener();
+			page.close();
+			bpage.reload();
+		});
+		
+		
+		
+	</script>
+
+</html>

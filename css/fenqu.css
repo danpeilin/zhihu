@@ -1,0 +1,75 @@
+li{
+				list-style: none;
+			}
+			.mui-table-view-cell img{
+				border-radius: 50%;
+				width: 20px;
+				height:80px;
+			}
+			.mui-table-view-cell{
+			
+				}
+			.bgtp{
+				
+				background-color: white;
+			}	
+			#wen1{
+				float: left;
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+			#wen2{
+				margin-top: 5px;
+				margin-bottom: 5px;
+				float: right;
+				size: a2;
+			}
+			.quanzi1{
+				margin-top: 5px;
+			}
+			.mui-row{
+				margin: 5px 0px;
+				background: #FFFFFF;
+			}
+			.image{
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				border: 1px solid #AAAAAA;
+			}
+			.username{
+				position: relative;
+				bottom: 25px;
+			}
+			.userSignature{
+				font-size: 8px;
+				color: #6D6D72;
+				position: relative;
+				right: 80px;
+			}
+			.follow{
+				float: right;
+				margin: 10px;
+				height: 25px;
+				width: 70px;
+				background: #DDDDDD;
+				color: #007AFF;
+				border-radius: 5px;
+			}
+			.tiezi{
+				margin-top: 5px;
+				width: 150px;
+				height: 350px;
+			}
+			.dianzan{
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+			.btn1{
+				width: 20px;
+				height:20px
+			}
+			.mui-segmented-control-inverted{
+				background-color: white;
+			}

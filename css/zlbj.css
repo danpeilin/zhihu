@@ -1,0 +1,84 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #FFFFFF;
+}
+.header {
+	background-color: #FFFFFF;
+}
+.mui-content {
+	background-color: #FFFFFF;
+}
+.bianji {
+	float: left;
+	margin-top: 12px;
+	margin-left: 20px;
+	font-size: 17px;
+	color: #000000;
+	letter-spacing: 2px;
+}
+.save {
+	float: right;
+	margin-right: 15px;
+	margin-top: 12px;
+	font-size: 15px;
+	color: #007AFF;
+	letter-spacing: 2px;
+}
+.jiben {
+	margin-top: 20px;
+	margin-left: 15px;
+	font-size: 19px;
+	color: #000000;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+.hr{
+	border: 0.5px solid #EEEEEE;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-top: 5px;
+}
+.inputrow {
+	height: 35px;
+}
+.lab {
+	margin-left: 15px;
+	width: 90px !important;
+	height: 35px;
+	font-size: 15px !important;
+	letter-spacing: 2px;
+	color: #777777;
+}
+.inputs::placeholder{
+	font-size: 15px!important;
+}
+.inputrowplus{
+	height: 60px !important;
+}
+.jieshao {
+	position: relative;
+	top:10px;
+	left: 20px;
+}
+.jieshao>p {
+	font-size: 15px;
+	color: #777777;
+}
+.tianjia {
+	margin-left: 15px;
+	margin-top: 15px;
+	color: #007AFF;
+	letter-spacing: 1px;
+}
+.kongge {
+	height: 20px;
+}
+.yincang {
+	display: none;
+}
+.idyincang {
+	display: none;
+}

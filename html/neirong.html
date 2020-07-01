@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/neirong.css" rel="stylesheet"/>
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	</head>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<div class="mui-input-row mui-search">
+				    <input type="search" class="mui-input-clear" placeholder="">
+				</div>
+			</header>
+			<nav class="mui-bar mui-bar-tab">
+				<div class="zantong" @click="dianzan">
+					点赞
+				</div>
+				<div class="icons">
+					<div class="like">
+						<span class="mui-icon mui-icon-chatbubble"></span>
+						<p>喜欢</p>
+					</div>
+				</div>
+				<div class="icons">
+					<div class="like">
+						<span class="mui-icon mui-icon-star"></span>
+						<p>收藏</p>
+					</div>
+				</div>
+				<div class="icons">
+					<div class="like">
+						<span class="mui-icon mui-icon-gear"></span>
+						<p>评论</p>
+					</div>
+				</div>
+			</nav>
+			<div class="mui-content">
+				<div class="userinfo">
+					<img :src="article.masterimg">
+					<div class="username">{{article.mastername}}</div>
+					<button type="button" class="fork mui-btn mui-btn-primary">关注</button>
+				</div>
+				<div class="title">
+					 {{article.title}}
+				</div>
+				<div class="titlezan">
+					<span>{{article.zancount}}</span>人赞同了文章
+				</div>
+				
+				<div class="langdu">
+					<p class="fir">为你朗读</p>
+					<p class="sec">4分钟</p>
+				</div>
+				<div v-html="article.text" class="textbody">
+				</div>
+				
+				<div class="time">
+					<p class="bianji">编辑于<span>{{article.gmtCreate}}</span></p>
+					<p>著作权归作者所有</p>
+				</div>
+				<div class="comments">
+					全部评论
+					<li class="pinluns" v-for="item in commentList" :key="item.id">
+						<div class="imgdiv">
+							<img :src="item.masterimg">
+						</div>
+						<div class="info mui-card">
+							<p class="name">{{item.mastercom}}</p>
+							<p class="com">{{item.commenttext}}</p>
+							<p class="pintime">{{item.gmtCreate}}</p>
+						</div>
+					</li>
+				</div>
+				<div class="addcomment">
+					<img :src="userimg">
+					<input type="text" class="pinbtn mui-input-clear" placeholder="输入评论">
+					<button type="button" @click="fabu" class="pins mui-btn mui-btn-primary">发表</button>
+				</div>
+			</div>
+		</div>
+	<body>
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			
+			var App = new Vue({
+				el: '#app',
+				data() {
+					return {
+						userimg:'',
+						userid:'',
+						parentid:'',
+						article:{},
+						commentList:[]
+					};
+				},
+				created() {
+				  var thisURL = document.URL;//获取页面传递的数据
+				  var getval =thisURL.split('?')[1];//获取问号之后的值
+				  this.parentid= getval.split("=")[1];//获取等于号之后的值
+				  this.requestArticle()
+				  this.requestcomments()
+				  var userinfo = localStorage.getItem("userinfo");
+				  var user = JSON.parse(userinfo);
+				  this.userimg = user.avatar
+				  this.userid = user.id
+				},
+				methods: {
+					requestArticle(){
+						mui.ajax('http://123.56.66.254:9001/zhuser/article/getarticlebyid/'+this.parentid,{
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':window.localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								App.article = data.data.article
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("失败")
+							}
+						});
+					},
+					fabu(){
+						
+						var userjson = localStorage.getItem("userinfo");
+						if(userjson == null) {
+							mui.toast('您尚未登录，请先登录');
+							return;
+						}
+						
+						var commenttext = $(".pinbtn").val();
+						mui.ajax('http://123.56.66.254:9001/zhuser/comment/addcomment',{
+							data: {
+								'userid': App.userid,
+								'articleid':App.parentid,
+								'commenttext':commenttext
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':window.localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								mui.toast("发表成功");
+								App.requestcomments();
+								$(".pinbtn").val('');
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("失败")
+							}
+						});
+					},
+					
+					requestcomments(){
+						mui.ajax('http://123.56.66.254:9001/zhuser/comment/getcomment/'+this.parentid,{
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':window.localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								App.commentList = data.data.commentlist
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("失败")
+							}
+						});
+					},
+					dianzan() {
+						mui.ajax('http://123.56.66.254:9001/zhuser/zan/'+this.userid+'/'+this.parentid,{
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Content-Type':'application/json',
+								'token':window.localStorage.getItem("usertoken")
+							},	              
+							success:function(data){
+								mui.toast(data.message);
+								App.requestArticle();
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								mui.toast("失败")
+							}
+						});
+					}
+					
+				}
+			})
+			
+			
+			mui.init()  
+			
+				
+		</script>
+	</body>
+
+</html>

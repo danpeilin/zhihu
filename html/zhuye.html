@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/zhuye.css" rel="stylesheet" />
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<span class="mui-icon mui-icon-videocam mui-pull-left"></span>
+			<div class="mui-input-row mui-search" style="width: 80%; display: inline-block; margin-left: 13px;">
+				<input type="search" class="zsearch mui-input-clear" placeholder="知乎">
+			</div>
+			<span class="fabu mui-icon mui-icon-plus mui-pull-right"></span>
+			<div></div>
+		</header>
+		<div class="mui-content" id="refreshContainer">
+			<div id="app">
+				<div class="mui-slider">
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted " id="xuanxiang">
+						<a class="mui-control-item" href="#item1">关注 </a>
+						<a class="mui-control-item" href="#item2">推荐</a>
+						<a class="mui-control-item" href="#item3">热榜</a>
+					</div>
+					<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+					<div class="mui-slider-group">
+						<div id="item1" class="mui-slider-item mui-control-content mui-active">
+							三个tab内容相同 tab1
+							<ul class="listcards">
+								<li class="lists mui-card" v-for="(item, index) in artlist" @click="into(item)">
+									<div class="title">{{item.title}}</div>
+									<div class="body">
+										<div class="left">
+											<div class="user">
+												<div class="img">
+													<img :src="item.masterimg" />
+												</div>
+												<div class="name">
+													{{item.mastername}}
+												</div>
+											</div>
+											<div class="descript">
+												{{item.descript}}
+											</div>
+										</div>
+										<div class="right">
+											<img :src="item.imgback" />
+										</div>
+									</div>
+									<div class="zan">
+										<span class="zantong">{{item.zancount}}</span>赞同
+										<span class="time">{{item.gmtCreate}}</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						
+						
+						<div id="item2" class="mui-slider-item mui-control-content">
+							三个tab内容相同 tab2
+							<ul class="listcards">
+								<li class="lists mui-card"  v-for="(item, index) in artlist" @click="into(item)">
+									<div class="title">{{item.title}}</div>
+									<div class="body">
+										<div class="left">
+											<div class="user">
+												<div class="img">
+													<img :src="item.masterimg" />
+												</div>
+												<div class="name">
+													{{item.mastername}}
+												</div>
+											</div>
+											<div class="descript">
+												{{item.descript}}
+											</div>
+										</div>
+										<div class="right">
+											<img :src="item.imgback" />
+										</div>
+									</div>
+									<div class="zan">
+										<span class="zantong">{{item.zancount}}</span>赞同
+										<span class="time">{{item.gmtCreate}}</span>
+									</div>
+								</li>
+								
+							</ul>
+						</div>
+						
+						
+						<div id="item3" class="mui-slider-item mui-control-content">
+							三个tab内容相同 tab3
+							<ul class="listcards">
+								<li class="lists mui-card" v-for="(item, index) in artlist" @click="into(item)">
+									<div class="title">{{item.title}}</div>
+									<div class="body">
+										<div class="left">
+											<div class="user">
+												<div class="img">
+													<img :src="item.masterimg" />
+												</div>
+												<div class="name">
+													{{item.mastername}}
+												</div>
+											</div>
+											<div class="descript">
+												{{item.descript}}
+											</div>
+										</div>
+										<div class="right">
+											<img :src="item.imgback" />
+										</div>
+									</div>
+									<div class="zan">
+										<span class="zantong">{{item.zancount}}</span>赞同
+										<span class="time">{{item.gmtCreate}}</span>
+									</div>
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+				mui.init({
+					swipeBack: true ,//启用右滑关闭功能
+					 pullRefresh : {
+					    container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+					    down : {
+					      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+					      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+					      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+					      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+					      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+					      auto: true,//可选,默认false.首次加载自动上拉刷新一次
+					      callback :refreshData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					    }
+					  }
+				});
+				
+				
+				function refreshData() {
+					mui.ajax('http://123.56.66.254:9001/zhuser/article/getarticle',{
+						dataType:'json',//服务器返回json格式数据
+						type:'get',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{
+							'Content-Type':'application/json;charset=UTF-8',
+							'token':window.localStorage.getItem("usertoken")
+						},	              
+						success:function(data){
+							 App.artlist = data.data.list;
+							 mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+							 mui('#refreshContainer').pullRefresh().refresh(true);
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							mui.toast("失败")
+						}
+					});
+				}
+				
+				
+				
+				
+			
+			var App = new Vue({
+			  el: '#app',
+			  data() {
+				  return {
+					  
+					artlist:[]
+				  }
+			 },
+			created() {
+				  this.getalllist()
+				  
+			},
+			methods: {
+				
+				getalllist() {
+					mui.ajax('http://123.56.66.254:9001/zhuser/article/getarticle',{
+						dataType:'json',//服务器返回json格式数据
+						type:'get',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{
+							'Content-Type':'application/json;charset=UTF-8',
+							'token':window.localStorage.getItem("usertoken")
+						},	              
+						success:function(data){
+							 App.artlist = data.data.list
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							mui.toast("失败")
+						}
+					});
+				},
+				into(item) {
+					mui.openWindow({
+						url:'./neirong.html?id='+item.id,
+						id:'neirong.html',
+					})
+				},
+				  
+			}
+			})
+			document.getElementsByClassName("fabu")[0].addEventListener('tap', function(){
+				
+				var userjson = localStorage.getItem("userinfo");
+				if(userjson == null) {
+					mui.toast('您尚未登录，请先登录');
+				} else {
+					mui.openWindow({
+						url:'./fabu.html',
+						id:'fabu.html'
+					})
+				}
+				
+			})
+		</script>
+	</body>
+
+</html>

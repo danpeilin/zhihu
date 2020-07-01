@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/wode.css"/>
+		
+		
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav my-title">
+			<a class="saomiao" href="#">
+				<img src="../images/saomiao.png" class="my-icon">
+			</a>
+			<div class="mui-input-row mui-search my-sousuo">
+				<input type="search" class="mui-input-clear" placeholder="搜索知乎内容">
+			</div>
+			<a class="shezhi">
+				<img src="../images/shezhi.png" class="my-icon">
+			</a>
+			<div id="moshi">
+				<img src="../images/yejian.png" class="my-icon">
+			</div>
+		</header>
+		<div class="mui-content zhu_yao_nei_rong">
+			<div class="zhan_wei"></div>
+			<div class="zhan_wei_yuan"></div>
+			<div class="ge_ren_xin_xi" id="islogin">
+				<div v-show="islogin" class="xin_xi_1">
+					<div class="tou_xiang">
+						<img :src="avatar" >
+					</div>
+					<b>{{nickname}}</b>
+					<div>知乎盐值：290 &gt;</div>
+					<span class="geren">个人主页 &gt; </span>
+				</div>
+				<div v-show="!islogin"  class="xin_xi_1" style="text-align: center;margin-top: 10px;">
+					登录知乎，体验更多功能<br>
+					<p style="color: #0062CC;" id="tolog">登录</p>
+				</div>
+				<div class="xin_xi_2">
+					<ul>
+						<li>
+							<span class="lan_se">未开通</span><br />
+							<span>创作中心</span>
+						</li>
+						<li class="fen_ge_xian">
+							<b>15</b><br />
+							<span>关注</span>
+						</li>
+						<li class="fen_ge_xian">
+							<b>0</b><br />
+							<span>收藏夹</span>
+						</li>
+						<li class="fen_ge_xian">
+							<b>100</b><br />
+							<span>最近浏览</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="guang_gao">
+				<div class="guang_gao_nei_rong"><span>盐选会员 网红背后的故事</span><span>首月9元</span></div>
+			</div>
+			<div class="cai_dan">
+				<ul>
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							学习记录
+						</span>
+					</li>
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							已购
+						</span>
+					</li>
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							付费咨询
+						</span>
+					</li>
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							活动广场
+						</span>
+					</li>
+					<br />
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							钱包
+						</span>
+					</li>
+						
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							社区建设
+						</span>
+					</li>
+						
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							反馈与帮助
+						</span>
+					</li>
+						
+					<li>
+						<div>
+							<img src="../images/bangdan.png" >
+						</div>
+						<span>
+							众裁议事厅
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div class="ka_pian">
+				<span>我的卡片</span><span>+ 管理卡片</span>
+			</div>
+			<div class="wen_ti">
+				<div>
+					<img src="../images/111.jpg" >
+					<span>回答问题</span>
+					<span>更多问题&nbsp;&gt;</span>
+				</div>
+				<div class="wen_ti_ka_pian qian_zhi_ka_pian">
+					<b>亲爱的陌生人，可以对我说一句生日快乐吗？</b>
+					<div>
+						<span>4812 关注</span>
+						<span>回答</span> <span>忽略</span>
+					</div>
+				</div>
+				<div class="wen_ti_ka_pian hou_bei_ka_pian">
+					<b>亲爱的陌生人，可以对我说一句生日快乐吗？</b>
+					<div>
+						<span>4812 关注</span>
+						<span>忽略</span> <span>回答</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	<script type="text/javascript">
+		mui.init();
+		
+		
+		var app = new Vue({
+			el: '#islogin',
+			data() {
+				return {
+					userid: '',
+					nickname: '',
+					avatar: '',
+					islogin: 't'
+				};
+			},
+			created() {
+				  var userjson = localStorage.getItem("userinfo");
+				  if(userjson == null) {
+					  this.islogin = false
+				  }
+				  var user = JSON.parse(userjson);
+				  this.userid = user.id;
+				  this.nickname = user.nickname;
+				  this.avatar = user.avatar;
+				 
+			},
+			methods: {
+				
+			}
+		})
+		
+		
+		document.getElementById('tolog').addEventListener('tap', function(){
+			console.log(plus.webview.currentWebview().id);
+			mui.openWindow({
+				url:'./login.html',
+				id:'login'
+			})
+		});
+		
+		document.getElementsByClassName('geren')[0].addEventListener('tap', function() {
+			mui.openWindow({
+				url:'./gerenzhuye.html',
+				id:'gerenzhuye.html'
+			})
+		});
+		
+		window.addEventListener('customEvent',function(event){
+		    //通过event.detail可获得传递过来的参数内容
+		    console.log("触发了customEvent事件，参数内容："+JSON.stringify(event.detail));
+		    //在此处添加要刷新的内容（或其他操作）
+		});
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>
